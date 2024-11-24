@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Diagnosis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Disease Diagnosis Form</h1>
+        <form id="diagnosisForm" novalidate>
+            <div class="form-group">
+                <label for="sex">Sex</label>
+                <select id="sex" name="sex" required>
+                    <option value="" disabled selected>Select your option</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                <p class="description">Select the sex of the patient.</p>
+            </div>
+
+            <div class="form-group">
+                <label for="temp_gradient">Temperature Gradient</label>
+                <select id="temp_gradient" name="temp_gradient" required>
+                    <option value="" disabled selected>Select your option</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <p class="description">Indicate if there is a temperature gradient (Yes/No).</p>
+            </div>
+
+            <div class="form-group">
+                <label for="pallor">Pallor</label>
+                <select id="pallor" name="pallor" required>
+                    <option value="" disabled selected>Select your option</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <p class="description">Indicate if pallor is present (Yes/No).</p>
+            </div>
+
+            <div class="form-group">
+                <label for="indrawing">Indrawing</label>
+                <select id="indrawing" name="indrawing" required>
+                    <option value="" disabled selected>Select your option</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <p class="description">Indicate if indrawing is observed (Yes/No).</p>
+            </div>
+
+            <div class="form-group">
+                <label for="resp_deep">Deep Respiration</label>
+                <select id="resp_deep" name="resp_deep" required>
+                    <option value="" disabled selected>Select your option</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <p class="description">Indicate if respiration is deep (Yes/No).</p>
+            </div>
+
+            <div class="form-group">
+                <label for="fever_high">High Fever</label>
+                <select id="fever_high" name="fever_high" required>
+                    <option value="" disabled selected>Select your option</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <p class="description">Indicate if there is high fever (Yes/No).</p>
+            </div>
+
+            <div class="form-group">
+                <label for="jaundice">Jaundice</label>
+                <select id="jaundice" name="jaundice" required>
+                    <option value="" disabled selected>Select your option</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <p class="description">Indicate if jaundice is present (Yes/No).</p>
+            </div>
+
+            <div class="form-group">
+                <label for="hb">Hemoglobin Level (g/dL)</label>
+                <input type="number" id="hb" name="hb" placeholder="e.g., 3.5" step="0.1" min="0" required>
+                <p class="description">Enter the hemoglobin level of the patient in g/dL (e.g., 3.5).</p>
+            </div>
+
+            <div class="form-group">
+                <label for="age_months">Age (in months)</label>
+                <input type="number" id="age_months" name="age_months" placeholder="e.g., 24" min="0" required>
+                <p class="description">Enter the age of the patient in months (e.g., 24).</p>
+            </div>
+
+            <div class="form-group">
+                <label for="waz_low">Weight-for-Age Z Score</label>
+                <input type="number" id="waz_low" name="waz_low" placeholder="e.g., 1.0" step="0.1">
+                <p class="description">Enter the weight-for-age Z score (e.g., 1.0).</p>
+            </div>
+
+            <div class="form-group">
+                <label for="bac_path">Bacterial Pathogen</label>
+                <input type="number" id="bac_path" name="bac_path" placeholder="e.g., 1" min="0" max="1" required>
+                <p class="description">Enter the bacterial pathogen indicator (1 if present, 0 otherwise).</p>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="submitForm()">Submit</button>
+        </form>
+
+        <!-- Results Box -->
+        <div class="results-box" id="results" style="display: none;">
+            <h2>Prediction Results</h2>
+            <pre id="resultsContent"></pre>
+        </div>
+
+        <!-- Help Section -->
+        <div class="help-section">
+            <h3>Category Descriptions</h3>
+            <ul>
+                <li><b>Sex:</b> Gender of the patient (Male/Female).</li>
+                <li><b>Temperature Gradient:</b> Whether there is an abnormal temperature difference across body regions.</li>
+                <li><b>Pallor:</b> Presence of paleness in skin or mucous membranes.</li>
+                <li><b>Indrawing:</b> Observed inward movement of chest during breathing.</li>
+                <li><b>Deep Respiration:</b> Indicates labored or heavy breathing.</li>
+                <li><b>High Fever:</b> Presence of elevated body temperature.</li>
+                <li><b>Jaundice:</b> Yellowing of the skin or eyes due to liver conditions.</li>
+                <li><b>Hemoglobin Level:</b> Blood hemoglobin concentration in grams per deciliter.</li>
+                <li><b>Age:</b> Patient's age in months.</li>
+                <li><b>Weight-for-Age Z Score:</b> A metric assessing if the weight is appropriate for the age.</li>
+                <li><b>Bacterial Pathogen:</b> Indicator of bacterial presence (1 if present, 0 otherwise).</li>
+            </ul>
+
+            <h3>Possible Results Explanation</h3>
+            <ul>
+                <li><b>Disease Diagnosis:</b> A predicted diagnosis based on the entered data. For example, <i>"Yes"</i> for presence of a disease or <i>"No"</i> if no disease is detected.</li>
+                <li><b>Hemoglobin Group (hbgrp):</b> Categorized hemoglobin level based on patient data.</li>
+                <li><b>Oxygen Saturation (oxysat):</b> Predicted oxygen saturation level, categorized into groups such as normal or low.</li>
+                <li><b>High Parasitaemia:</b> Indicates whether the patient has a high level of malaria parasites in the blood (Yes/No).</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function submitForm() {
+            const form = document.getElementById('diagnosisForm');
+            if (!form.checkValidity()) {
+                alert("Please fill in all required fields!");
+                return;
+            }
+
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultsDiv = document.getElementById('results');
+                const resultsContent = document.getElementById('resultsContent');
+                resultsContent.textContent = JSON.stringify(data, null, 2);
+                resultsDiv.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while processing your request.');
+            });
+        }
+    </script>
+</body>
+</html>

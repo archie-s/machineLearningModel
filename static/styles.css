@@ -1,0 +1,136 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #74ebd5, #9face6);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Main Container */
+.container {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px 30px;
+    max-width: 800px;
+    width: 100%;
+    margin-bottom: 30px;
+    overflow-y: auto;
+}
+
+/* Title */
+h1 {
+    font-size: 2rem;
+    color: #4a90e2;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.description {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 5px;
+}
+
+/* Submit Button */
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #357ab8;
+}
+
+/* Results Section */
+.results-box {
+    margin-top: 30px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.results-box h2 {
+    margin-bottom: 15px;
+    color: #4a90e2;
+    text-align: center;
+}
+
+pre {
+    font-family: 'Courier New', Courier, monospace;
+    background: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    overflow-x: auto;
+}
+
+/* Help Section */
+.help-section {
+    margin-top: 40px;
+}
+
+.help-section h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.help-section ul {
+    list-style: disc;
+    padding-left: 20px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+}
